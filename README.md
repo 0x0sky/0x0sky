@@ -2,7 +2,7 @@
 
 **Software engineer · systems architect · poet**
 
-Kyiv, Ukraine · [nilx.one](https://nilx.one)
+Kyiv, Ukraine · [mind,nilx.one](https://mind.nilx.one)
 
 > I build systems that remain clear when the world becomes complicated.
 
