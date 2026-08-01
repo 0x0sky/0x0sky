@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
   <meta name="theme-color" content="#f1f3f4">
-  <meta name="description" content="nilx.one — canonical index of four entities rooted in 0x0sky.">
+  <meta name="description" content="nilx.one — canonical index of four entities rooted in 0x0sky, with mind-web as their living visual map.">
   <title>nilx.one</title>
   <style>
     :root {
@@ -14,7 +14,6 @@
       --ink: #0b0d0e;
       --muted: #687177;
       --hairline: #d3d7d9;
-      --pending: 0.42;
       --page-x: clamp(24px, 5vw, 76px);
       --page-y: clamp(28px, 5vw, 72px);
     }
@@ -66,7 +65,6 @@
 
     .header-note,
     .index,
-    .meta,
     .footer {
       font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     }
@@ -79,29 +77,31 @@
       text-transform: uppercase;
     }
 
-    .entities {
+    .content {
       display: grid;
       align-content: center;
+      gap: clamp(48px, 7vw, 96px);
+    }
+
+    .entities {
+      display: grid;
       border-top: 1px solid var(--hairline);
     }
 
-    .entity {
-      min-height: 164px;
+    .entity,
+    .mind-web {
       display: grid;
-      grid-template-columns: 52px minmax(72px, 108px) minmax(220px, 1fr) minmax(180px, 0.56fr) 34px;
-      align-items: center;
-      gap: clamp(16px, 2.5vw, 42px);
-      padding: clamp(24px, 3vw, 42px) 0;
+      align-items: start;
       border-bottom: 1px solid var(--hairline);
-      text-decoration: none;
-      transition: opacity 160ms ease;
     }
 
-    .entity[href]:hover { opacity: 0.62; }
-    .entity[href]:focus-visible { outline: 2px solid var(--ink); outline-offset: 8px; }
+    .entity {
+      grid-template-columns: 52px minmax(72px, 108px) minmax(220px, 0.72fr) minmax(280px, 1fr);
+      gap: clamp(16px, 2.5vw, 42px);
+      padding: clamp(28px, 3.4vw, 48px) 0;
+    }
 
     .index {
-      align-self: start;
       padding-top: 5px;
       color: var(--muted);
       font-size: 11px;
@@ -114,47 +114,58 @@
       display: block;
     }
 
-    .identity h2 {
+    .identity h2,
+    .mind-web h2 {
       margin: 0;
-      font-size: clamp(30px, 4.2vw, 66px);
       font-weight: 500;
       letter-spacing: -0.055em;
       line-height: 0.95;
     }
 
-    .identity p,
-    .meta p {
-      margin: 0;
+    .identity h2 {
+      font-size: clamp(30px, 4.2vw, 66px);
     }
 
-    .identity p {
-      margin-top: 10px;
+    .identity .kind,
+    .mind-web .kind {
+      margin: 10px 0 0;
       color: var(--muted);
       font-size: clamp(14px, 1.25vw, 18px);
       line-height: 1.4;
     }
 
-    .meta {
-      display: grid;
-      gap: 8px;
-      color: var(--muted);
-      font-size: 10px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+    .description {
+      margin: 0;
+      max-width: 62ch;
+      font-size: clamp(15px, 1.2vw, 19px);
+      line-height: 1.55;
+      letter-spacing: -0.012em;
     }
 
-    .meta strong {
-      color: var(--ink);
-      font-weight: 500;
+    .mind-web {
+      position: relative;
+      grid-template-columns: 52px minmax(72px, 108px) minmax(220px, 0.72fr) minmax(280px, 1fr) 34px;
+      gap: clamp(16px, 2.5vw, 42px);
+      padding: clamp(28px, 3.4vw, 48px) 0;
+      text-decoration: none;
+      transition: opacity 160ms ease;
+    }
+
+    .mind-web:hover { opacity: 0.62; }
+    .mind-web:focus-visible { outline: 2px solid var(--ink); outline-offset: 8px; }
+
+    .mind-web h2 {
+      font-size: clamp(30px, 4vw, 58px);
     }
 
     .arrow {
       justify-self: end;
-      font-size: 22px;
+      align-self: center;
+      color: var(--ink);
+      font-size: 28px;
       line-height: 1;
+      font-weight: 500;
     }
-
-    .entity:not([href]) .arrow { opacity: 0.22; }
 
     .footer {
       display: flex;
@@ -166,36 +177,88 @@
       text-transform: uppercase;
     }
 
-    @media (max-width: 820px) {
+    @media (max-width: 920px) {
       .header-note { display: none; }
 
       .entity {
+        grid-template-columns: 34px 64px minmax(0, 1fr);
+      }
+
+      .mind-web {
         grid-template-columns: 34px 64px minmax(0, 1fr) 24px;
-        min-height: 132px;
       }
 
       .mark { width: 64px; height: 64px; }
-      .meta { display: none; }
-      .identity h2 { font-size: clamp(28px, 8vw, 48px); }
+
+      .description {
+        grid-column: 3 / -1;
+        max-width: 56ch;
+      }
+
+      .mind-web .description {
+        grid-column: 3 / 4;
+      }
+
+      .identity h2,
+      .mind-web h2 {
+        font-size: clamp(28px, 8vw, 48px);
+      }
     }
 
-    @media (max-width: 520px) {
+    @media (max-width: 560px) {
       .page { gap: 40px; }
+      .content { gap: 44px; }
 
-      .entity {
+      .entity,
+      .mind-web {
         grid-template-columns: 28px 52px minmax(0, 1fr) 18px;
         gap: 12px;
-        min-height: 112px;
+        padding: 28px 0 30px;
       }
 
       .mark { width: 52px; height: 52px; }
-      .identity h2 { font-size: clamp(24px, 8vw, 38px); }
-      .identity p { font-size: 13px; }
+
+      .identity {
+        grid-column: 3 / -1;
+      }
+
+      .mind-web .identity {
+        grid-column: 3 / 4;
+      }
+
+      .description,
+      .mind-web .description {
+        grid-column: 3 / -1;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      .mind-web .description {
+        grid-column: 3 / 4;
+      }
+
+      .arrow {
+        grid-column: 4;
+        grid-row: 1 / span 2;
+        align-self: center;
+        font-size: 22px;
+      }
+
+      .identity h2,
+      .mind-web h2 {
+        font-size: clamp(24px, 8vw, 38px);
+      }
+
+      .identity .kind,
+      .mind-web .kind {
+        font-size: 13px;
+      }
+
       .footer { flex-direction: column; gap: 8px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .entity { transition: none; }
+      .mind-web { transition: none; }
     }
   </style>
 </head>
@@ -206,80 +269,83 @@
       <p class="header-note">four entities · one root</p>
     </header>
 
-    <section class="entities" aria-label="Entity index">
-      <a class="entity" href="https://github.com/0x0sky" aria-label="0x0sky — Personal entity, root identity">
-        <span class="index">01</span>
+    <div class="content">
+      <section class="entities" aria-label="Canonical entity index">
+        <article class="entity" aria-labelledby="entity-0x0sky">
+          <span class="index">00</span>
+          <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
+            <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" stroke-width="7"/>
+            <rect x="34" y="34" width="32" height="32" fill="currentColor"/>
+          </svg>
+          <div class="identity">
+            <h2 id="entity-0x0sky">0x0sky</h2>
+            <p class="kind">Personal entity · Root identity</p>
+          </div>
+          <p class="description">Everything starts here. This is my personal identity—the place where ideas, values, and long-term direction come together before becoming products or technologies. Every other project grows from this foundation.</p>
+        </article>
+
+        <article class="entity" aria-labelledby="entity-aiaiaiai">
+          <span class="index">01</span>
+          <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
+            <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" stroke-width="7"/>
+            <rect x="34" y="34" width="14" height="14" fill="currentColor"/>
+            <rect x="52" y="34" width="14" height="14" fill="currentColor"/>
+            <rect x="34" y="52" width="14" height="14" fill="currentColor"/>
+            <rect x="52" y="52" width="14" height="14" fill="currentColor" opacity="0.42"/>
+          </svg>
+          <div class="identity">
+            <h2 id="entity-aiaiaiai">aiaiaiai tech.</h2>
+            <p class="kind">Research &amp; engineering</p>
+          </div>
+          <p class="description">An independent engineering lab focused on exploring new ideas and building core technologies. Research begins here, prototypes take shape here, and the strongest concepts evolve into real products.</p>
+        </article>
+
+        <article class="entity" aria-labelledby="entity-market">
+          <span class="index">02</span>
+          <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
+            <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" stroke-width="7"/>
+            <rect x="34" y="34" width="14" height="32" fill="currentColor"/>
+            <rect x="52" y="34" width="14" height="32" fill="currentColor" opacity="0.42"/>
+          </svg>
+          <div class="identity">
+            <h2 id="entity-market">0xda-market</h2>
+            <p class="kind">Digital commerce</p>
+          </div>
+          <p class="description">A commerce platform built around useful digital products and infrastructure. It turns research into practical tools that creators, developers, and businesses can actually use.</p>
+        </article>
+
+        <article class="entity" aria-labelledby="entity-0x1">
+          <span class="index">03</span>
+          <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
+            <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" stroke-width="7"/>
+            <rect x="34" y="34" width="32" height="13" fill="currentColor"/>
+            <rect x="34" y="53" width="32" height="13" fill="currentColor"/>
+          </svg>
+          <div class="identity">
+            <h2 id="entity-0x1">0x1</h2>
+            <p class="kind">Protocol</p>
+          </div>
+          <p class="description">A protocol for trusted digital relationships. It defines how people, software, and services can establish verifiable connections instead of relying solely on centralized trust.</p>
+        </article>
+      </section>
+
+      <a class="mind-web" href="https://mind.nilx.one" aria-label="Open mind-web">
+        <span class="index">↳</span>
         <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
           <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" stroke-width="7"/>
-          <rect x="34" y="34" width="32" height="32" fill="currentColor"/>
+          <circle cx="36" cy="42" r="6" fill="currentColor"/>
+          <circle cx="64" cy="34" r="6" fill="currentColor"/>
+          <circle cx="58" cy="64" r="6" fill="currentColor"/>
+          <path d="M41 40L58 35M39 47L54 60M62 40L59 58" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
         </svg>
         <div class="identity">
-          <h2>0x0sky</h2>
-          <p>Personal entity · Root identity</p>
+          <h2>mind-web</h2>
+          <p class="kind">Visual knowledge graph</p>
         </div>
-        <div class="meta">
-          <p>type <strong>root</strong></p>
-          <p>state <strong>personal</strong></p>
-        </div>
+        <p class="description">mind-web is a living map of my digital mind. It reveals how ideas become projects, how projects connect to one another, and how every path ultimately leads back to the same root identity.</p>
         <span class="arrow" aria-hidden="true">↗</span>
       </a>
-
-      <a class="entity" href="https://github.com/aiaiaiaitech" aria-label="aiaiaiai tech. — Research and engineering">
-        <span class="index">02</span>
-        <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
-          <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" stroke-width="7"/>
-          <rect x="34" y="34" width="14" height="14" fill="currentColor"/>
-          <rect x="52" y="34" width="14" height="14" fill="currentColor"/>
-          <rect x="34" y="52" width="14" height="14" fill="currentColor"/>
-          <rect x="52" y="52" width="14" height="14" fill="currentColor" opacity="0.42"/>
-        </svg>
-        <div class="identity">
-          <h2>aiaiaiai tech.</h2>
-          <p>Research &amp; engineering</p>
-        </div>
-        <div class="meta">
-          <p>type <strong>organization</strong></p>
-          <p>state <strong>forming</strong></p>
-        </div>
-        <span class="arrow" aria-hidden="true">↗</span>
-      </a>
-
-      <a class="entity" href="https://0xda-market.nilx.one" aria-label="0xda-market — Digital commerce">
-        <span class="index">03</span>
-        <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
-          <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" stroke-width="7"/>
-          <rect x="34" y="34" width="14" height="32" fill="currentColor"/>
-          <rect x="52" y="34" width="14" height="32" fill="currentColor" opacity="0.42"/>
-        </svg>
-        <div class="identity">
-          <h2>0xda-market</h2>
-          <p>Digital commerce</p>
-        </div>
-        <div class="meta">
-          <p>type <strong>market</strong></p>
-          <p>state <strong>active</strong></p>
-        </div>
-        <span class="arrow" aria-hidden="true">↗</span>
-      </a>
-
-      <div class="entity" aria-label="0x1 — Protocol">
-        <span class="index">04</span>
-        <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
-          <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" stroke-width="7"/>
-          <rect x="34" y="34" width="32" height="13" fill="currentColor"/>
-          <rect x="34" y="53" width="32" height="13" fill="currentColor"/>
-        </svg>
-        <div class="identity">
-          <h2>0x1</h2>
-          <p>Protocol</p>
-        </div>
-        <div class="meta">
-          <p>type <strong>protocol</strong></p>
-          <p>state <strong>forming</strong></p>
-        </div>
-        <span class="arrow" aria-hidden="true">—</span>
-      </div>
-    </section>
+    </div>
 
     <footer class="footer">
       <span>Light surface · canonical index</span>
