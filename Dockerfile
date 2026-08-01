@@ -9,6 +9,7 @@ RUN apk add --no-cache libcap-utils \
 
 COPY Caddyfile /etc/caddy/Caddyfile
 COPY index.html /srv/index.html
+COPY assets /srv/assets
 
 EXPOSE 8080
 
