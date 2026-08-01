@@ -1,5 +1,12 @@
 FROM caddy:2-alpine
 
+# The upstream image grants cap_net_bind_service to /usr/bin/caddy.
+# This workload listens on 8080 and runs with no-new-privileges plus all
+# capabilities dropped, so remove the unused file capability to keep exec valid.
+RUN apk add --no-cache libcap-utils \
+  && setcap -r /usr/bin/caddy \
+  && apk del libcap-utils
+
 COPY Caddyfile /etc/caddy/Caddyfile
 COPY index.html /srv/index.html
 
