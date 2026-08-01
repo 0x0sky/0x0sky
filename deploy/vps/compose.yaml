@@ -1,0 +1,28 @@
+services:
+  app:
+    image: ${APP_IMAGE:?APP_IMAGE is required}
+    container_name: nilx-one
+    restart: unless-stopped
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    tmpfs:
+      - /config
+      - /data
+    networks:
+      nilx-edge:
+        aliases:
+          - nilx-one
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8080/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 6
+      start_period: 5s
+
+networks:
+  nilx-edge:
+    external: true
+    name: nilx-edge
