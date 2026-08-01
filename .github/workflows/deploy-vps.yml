@@ -86,9 +86,8 @@ jobs:
             "DEPLOY_PATH='$DEPLOY_PATH' RELEASE_SHA='$RELEASE_SHA' APP_IMAGE='$APP_IMAGE' bash -s" <<'REMOTE'
           set -Eeuo pipefail
 
-          deploy_owner="$(id -un)"
-          deploy_group="$(id -gn)"
-          sudo -n install -d -m 0755 -o "$deploy_owner" -g "$deploy_group" "$DEPLOY_PATH"
+          test -d "$DEPLOY_PATH"
+          test -w "$DEPLOY_PATH"
           install -d -m 0755 "$DEPLOY_PATH/releases"
 
           release_dir="$DEPLOY_PATH/releases/$RELEASE_SHA"
