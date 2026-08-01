@@ -1,0 +1,113 @@
+name: Deploy nilx.one
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - index.html
+      - Caddyfile
+      - Dockerfile
+      - deploy/vps/**
+      - .github/workflows/deploy-vps.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-nilx-one-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment: development
+    env:
+      VPS_HOST: ${{ secrets.VPS_HOST }}
+      VPS_USER: ${{ secrets.VPS_USER }}
+      VPS_SSH_PRIVATE_KEY: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+      VPS_PORT: ${{ vars.VPS_PORT || '22022' }}
+      VPS_DEPLOY_PATH: ${{ vars.VPS_DEPLOY_PATH || '/opt/nilx-one' }}
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Validate configuration
+        run: |
+          set -Eeuo pipefail
+          test -n "$VPS_HOST"
+          test -n "$VPS_USER"
+          test -n "$VPS_SSH_PRIVATE_KEY"
+          [[ "$VPS_PORT" =~ ^[0-9]+$ ]]
+          [[ "$VPS_DEPLOY_PATH" == /* ]]
+
+      - name: Build and verify image
+        run: |
+          set -Eeuo pipefail
+          release_sha="$(git rev-parse HEAD)"
+          image="nilx-one:${release_sha}"
+          echo "RELEASE_SHA=$release_sha" >> "$GITHUB_ENV"
+          echo "APP_IMAGE=$image" >> "$GITHUB_ENV"
+          docker build --pull --tag "$image" .
+          container="$(docker run -d --rm "$image")"
+          trap 'docker stop "$container" >/dev/null 2>&1 || true' EXIT
+          for attempt in {1..12}; do
+            if docker exec "$container" wget -qO- http://127.0.0.1:8080/health | grep -qx ok; then
+              break
+            fi
+            sleep 2
+          done
+          docker exec "$container" wget -qO- http://127.0.0.1:8080/health | grep -qx ok
+          docker exec "$container" wget -qO- http://127.0.0.1:8080/ | grep -q 'mind-web is a living map of my digital mind'
+
+      - name: Package release
+        run: |
+          set -Eeuo pipefail
+          docker save "$APP_IMAGE" | gzip -1 > "/tmp/nilx-one-${RELEASE_SHA}.tar.gz"
+          tar -czf "/tmp/nilx-one-${RELEASE_SHA}.deploy.tar.gz" deploy/vps
+
+      - name: Configure SSH
+        run: |
+          set -Eeuo pipefail
+          install -m 0700 -d "$HOME/.ssh"
+          printf '%s\n' "$VPS_SSH_PRIVATE_KEY" > "$HOME/.ssh/id_ed25519"
+          chmod 0600 "$HOME/.ssh/id_ed25519"
+          ssh-keygen -y -f "$HOME/.ssh/id_ed25519" >/dev/null
+          ssh-keyscan -T 10 -p "$VPS_PORT" -H "$VPS_HOST" > "$HOME/.ssh/known_hosts"
+
+      - name: Upload and activate
+        run: |
+          set -Eeuo pipefail
+          image_archive="/tmp/nilx-one-${RELEASE_SHA}.tar.gz"
+          config_archive="/tmp/nilx-one-${RELEASE_SHA}.deploy.tar.gz"
+          scp -P "$VPS_PORT" "$image_archive" "$config_archive" "$VPS_USER@$VPS_HOST:/tmp/"
+          ssh -p "$VPS_PORT" "$VPS_USER@$VPS_HOST" \
+            "DEPLOY_PATH='$VPS_DEPLOY_PATH' RELEASE_SHA='$RELEASE_SHA' APP_IMAGE='$APP_IMAGE' bash -s" <<'REMOTE'
+          set -Eeuo pipefail
+          release_dir="$DEPLOY_PATH/releases/$RELEASE_SHA"
+          image_archive="/tmp/nilx-one-${RELEASE_SHA}.tar.gz"
+          config_archive="/tmp/nilx-one-${RELEASE_SHA}.deploy.tar.gz"
+          mkdir -p "$release_dir"
+          tar -xzf "$config_archive" -C "$release_dir"
+          gzip -dc "$image_archive" | docker load
+          APP_IMAGE="$APP_IMAGE" sh "$release_dir/deploy/vps/deploy.sh"
+          ln -sfn "$release_dir" "$DEPLOY_PATH/current"
+          rm -f "$image_archive" "$config_archive"
+          find "$DEPLOY_PATH/releases" -mindepth 1 -maxdepth 1 -type d -printf '%T@ %p\n' \
+            | sort -nr | tail -n +4 | cut -d' ' -f2- | xargs -r rm -rf
+          REMOTE
+
+      - name: Verify public release
+        run: |
+          set -Eeuo pipefail
+          for attempt in {1..12}; do
+            body="$(curl -fsSL --connect-timeout 10 --max-time 20 https://nilx.one/ || true)"
+            health="$(curl -fsSL --connect-timeout 10 --max-time 20 https://nilx.one/health || true)"
+            if [[ "$health" == ok ]] && grep -q 'mind-web is a living map of my digital mind' <<< "$body"; then
+              exit 0
+            fi
+            sleep 5
+          done
+          echo 'Public deployment verification failed' >&2
+          exit 1
