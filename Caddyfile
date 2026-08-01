@@ -1,0 +1,17 @@
+:8080 {
+  root * /srv
+  encode zstd gzip
+
+  handle /health {
+    respond "ok" 200
+  }
+
+  file_server
+
+  header {
+    X-Content-Type-Options nosniff
+    Referrer-Policy no-referrer
+    Permissions-Policy "camera=(), microphone=(), geolocation=()"
+    Content-Security-Policy "default-src 'self'; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'"
+  }
+}
