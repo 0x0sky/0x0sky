@@ -158,13 +158,24 @@
       font-size: clamp(30px, 4vw, 58px);
     }
 
+    .mind-mark {
+      color: var(--ink);
+    }
+
     .arrow {
+      width: 26px;
+      height: 26px;
+      display: grid;
+      place-items: center;
       justify-self: end;
       align-self: center;
       color: var(--ink);
-      font-size: 28px;
-      line-height: 1;
-      font-weight: 500;
+    }
+
+    .arrow svg {
+      width: 100%;
+      height: 100%;
+      display: block;
     }
 
     .footer {
@@ -241,7 +252,8 @@
         grid-column: 4;
         grid-row: 1 / span 2;
         align-self: center;
-        font-size: 22px;
+        width: 22px;
+        height: 22px;
       }
 
       .identity h2,
@@ -331,19 +343,20 @@
 
       <a class="mind-web" href="https://mind.nilx.one" aria-label="Open mind-web">
         <span class="index">↳</span>
-        <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
-          <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" stroke-width="7"/>
-          <circle cx="36" cy="42" r="6" fill="currentColor"/>
-          <circle cx="64" cy="34" r="6" fill="currentColor"/>
-          <circle cx="58" cy="64" r="6" fill="currentColor"/>
-          <path d="M41 40L58 35M39 47L54 60M62 40L59 58" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+        <svg class="mark mind-mark" viewBox="0 0 100 100" aria-hidden="true">
+          <rect x="23" y="23" width="54" height="54" rx="1" fill="none" stroke="currentColor" stroke-width="4" transform="rotate(45 50 50)"/>
         </svg>
         <div class="identity">
           <h2>mind-web</h2>
           <p class="kind">Visual knowledge graph</p>
         </div>
         <p class="description">mind-web is a living map of my digital mind. It reveals how ideas become projects, how projects connect to one another, and how every path ultimately leads back to the same root identity.</p>
-        <span class="arrow" aria-hidden="true">↗</span>
+        <span class="arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M14 4h6v6M20 4l-9 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
       </a>
     </div>
 
