@@ -4,7 +4,7 @@
 
 Kyiv, Ukraine · [mind.nilx.one](https://mind.nilx.one)
 
-**writing / notes** → [t.me/nil_blo_en](https://t.me/nil_blo_en)
+**writing / notes** → [UA](https://t.me/nil_blo) · [EN](https://t.me/nil_blo_en)
 
 > I build systems that remain clear when the world becomes complicated.
 
