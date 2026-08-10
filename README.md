@@ -4,6 +4,8 @@
 
 Kyiv, Ukraine · [mind.nilx.one](https://mind.nilx.one)
 
+**writing / notes** → [t.me/nil_blo](https://t.me/nil_blo)
+
 > I build systems that remain clear when the world becomes complicated.
 
 Most software problems are not code problems. They begin earlier — as blurred intent, weak boundaries, or assumptions that were never turned into contracts.
