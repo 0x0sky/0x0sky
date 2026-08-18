@@ -2,7 +2,7 @@
 
 **Software engineer · systems architect · poet**
 
-Kyiv, Ukraine · [mind.nilx.one](https://mind.nilx.one)
+Kyiv, Ukraine · [mind.aiaiaiai.org](https://mind.aiaiaiai.org)
 
 **writing / notes** → [UA](https://t.me/nil_blo) · [EN](https://t.me/nil_blo_en)
 
@@ -46,9 +46,9 @@ Built from Kyiv, where reliability is not a slogan and reality reaches productio
 - [`mcp-control`](https://github.com/0x0sky/mcp-control) — a read-only host control plane split across a real security boundary
 - [`infraCLI`](https://github.com/0x0sky/infraCLI) — a runtime-independent infrastructure model expressed through one small declarative contract
 - [`infraBot`](https://github.com/0x0sky/infraBot) — remote infrastructure interaction designed around explicit authorization and narrow capabilities
-- [`nilx.one`](https://nilx.one) — my personal software identity and the surface where these systems converge
+- [`nilx.one / 0x1`](https://github.com/nilx-one/0x1) — a separate project currently centered on `0x1`, with its public documentation still taking shape
 - [`0xda-market`](https://github.com/0xda-market) — an evolving commerce ecosystem built around clean domain boundaries and provider independence
-- [`aiaiaiai tech.`](https://github.com/aiaiaiaitech) — a future-facing engineering organization taking shape around useful, durable systems
+- [`aiaiaiai tech.`](https://github.com/aiaiaiai-tech) — the parent engineering organization for `mind`, `nilx.one`, `0xda-market`, and related work
 
 These are not isolated projects. They are parts of one direction: software that can explain itself, infrastructure that does not require ritual, and tools that increase human agency without hiding their own behavior.
 
