@@ -2,7 +2,7 @@
 
 **Software engineer · Kyiv, Ukraine**
 
-I build software across product, infrastructure, protocols, automation, and AI — mostly with Swift, Rust, Ruby, Go, and C.
+I build software across product, infrastructure, protocols, automation, and AI — mostly with Swift, Rust, Ruby, TypeScript, and Python.
 
 I started on the client side and still care about interfaces, but most of my recent work lives deeper in the stack: deterministic cores, explicit authority boundaries, provider-independent systems, deployment, observability, and small tools that remove repeated work.
 
@@ -32,7 +32,7 @@ They range from infrastructure control and MCP tooling to UI experiments and old
 
 I prefer contracts over assumptions, explicit boundaries over hidden coupling, and predictable code over clever code.
 
-**Swift** is still the language in which I have the longest production history. **Rust** is where I increasingly put deterministic shared cores and portable logic. **Ruby** is useful when product speed and expressive server-side code matter. **Go** appears around infrastructure. **C** remains the useful reminder that every abstraction eventually reaches memory, layout, and machines.
+**Swift** is the language in which I have the longest production history. **Rust** is where I increasingly put deterministic shared cores and portable logic. **Ruby** is useful when product speed and expressive server-side code matter. **TypeScript** is the practical language around web surfaces and integrations. **Python** is useful for automation, data work, experiments, and AI-facing tooling.
 
 AI is part of the toolchain and, in some projects, part of the product. I am much more interested in permissions, authority, local execution, observable actions, and failure semantics than in putting an `AI` label on ordinary software.
 
