@@ -40,17 +40,26 @@ Built from Kyiv, where reliability is not a slogan and reality reaches productio
 
 **Poetry** is compression without the loss of meaning.
 
-## systems in motion
+## things I’m building
 
+- [`0x1`](https://github.com/nilx-one/0x1) — a protocol and product for portable identity, relationships, and human/AI interaction
+- [`Prism`](https://github.com/aiaiaiai-org/prism) — provider-agnostic publishing infrastructure for turning one source into controlled delivery across channels
+- [`0xda-market`](https://github.com/0xda-market) — an evolving commerce ecosystem built around explicit domain boundaries and provider independence
+- [`4x-errors`](https://github.com/aiaiaiai-org/4x-errors) — shared error collection and delivery infrastructure designed to stay useful without leaking secrets
 - [`mind`](https://github.com/0x0sky/mind) — a versioned public context graph for identity, engineering practice, systems, organizations, and writing
-- [`mcp-control`](https://github.com/0x0sky/mcp-control) — a read-only host control plane split across a real security boundary
+
+These are the product-facing bets. They are supported by smaller systems that solve recurring engineering problems instead of becoming products by accident.
+
+## tools underneath
+
 - [`infraCLI`](https://github.com/0x0sky/infraCLI) — a runtime-independent infrastructure model expressed through one small declarative contract
 - [`infraBot`](https://github.com/0x0sky/infraBot) — remote infrastructure interaction designed around explicit authorization and narrow capabilities
-- [`nilx.one / 0x1`](https://github.com/nilx-one/0x1) — a separate project currently centered on `0x1`, with its public documentation still taking shape
-- [`0xda-market`](https://github.com/0xda-market) — an evolving commerce ecosystem built around clean domain boundaries and provider independence
-- [`aiaiaiai tech.`](https://github.com/aiaiaiai-tech) — the parent engineering organization for `mind`, `nilx.one`, `0xda-market`, and related work
+- [`mcp-control`](https://github.com/0x0sky/mcp-control) — a read-only host control plane split across a real security boundary
+- [`ping-pong-MACHINE`](https://github.com/0x0sky/ping-pong-MACHINE) — a small distributed surface for synthetic traffic, availability, and edge observation
+- [`ReX`](https://github.com/0x0sky/ReX) — an experimental interface project focused on expressive presentation and interaction
+- [`swiftui-dsl`](https://github.com/0x0sky/swiftui-dsl) — SwiftUI experimentation around declarative interface construction
 
-These are not isolated projects. They are parts of one direction: software that can explain itself, infrastructure that does not require ritual, and tools that increase human agency without hiding their own behavior.
+[`aiaiaiai tech.`](https://github.com/aiaiaiai-org) is the parent engineering organization around this work. `nilx.one` and `0xda-market` remain distinct product boundaries rather than repository categories.
 
 ## what I am building toward
 
